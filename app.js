@@ -40,7 +40,7 @@ const listScehema = {
 };
 
 
-const List = mongoose.model("List", listScehema);
+const List = mongoose.model("List",listSchema);
 
 app.get("/", function(req, res) {
 Item.find({},function (err, foundItems) {
@@ -69,12 +69,12 @@ app.get("/:customListName", function (req,res) {
       if (!foundList) {
         const list = new List ({
           name: customListName,
-          item: defaultItems
+          items: defaultItems
         });
         list.save();
-        res.redirect("/"+customListName);
+        res.redirect("/" + customListName);
             } else {
-        res.render("list",{listTitle: "foundList.name", newListItems: foundList.items});
+        res.render("list",{listTitle: foundList.name, newListItems: foundList.items});
       }
     } 
   });
